@@ -1,3 +1,5 @@
+require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 const connect = require("./config/db");
 const app = express();
@@ -6,6 +8,8 @@ const { body, validationResult } = require("express-validator");
 const teacherController = require("./controllers/teacher.controller");
 const classesController = require("./controllers/class.controller");
 app.use(express.json());
+
+app.use(cors());
 
 app.post(
   "/register",
@@ -25,7 +29,7 @@ app.post(
 app.use("/teachers", teacherController);
 app.use("/classes", classesController);
 
-app.listen(1234, async () => {
+app.listen(process.env.PORT || 1234, async () => {
   try {
     await connect();
   } catch (err) {
