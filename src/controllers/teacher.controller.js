@@ -18,7 +18,7 @@ authorise(["admin"]), async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const teachers = await Teacher.find().lean().exec();
+        const teachers = await Teacher.find().populate("class_id").lean().exec();
         res.status(200).send(teachers);
     }
     catch (err) {
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const teacher = await Teacher.findById(req.params.id).lean().exec();
+        const teacher = await Teacher.findById(req.params.id).populate("class_id").lean().exec();
         res.status(200).send(teacher);
     }
     catch (err) {

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const authenticate = require('../middleware/authenticate');
 
 const Class = require('../models/classes.model');
 
 
-router.post('/', async (req, res) => {
+router.post('/',authenticate, async (req, res) => {
     try {
         const classes = await Class.create(req.body);
         res.status(201).send(classes);
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
 
 router.get("/", async (req, res) => {
     try {
-        const classes = await Class.find().populate("teacher_id").lean().exec();
+        const classes = await Class.find().lean().exec();
         res.status(200).send(classes);
     }
     catch (err) {
@@ -27,7 +28,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const classes = await Class.findById(req.params.id).populate("teacher_id").lean().exec();
+        const classes = await Class.findById(req.params.id).lean().exec();
         res.status(200).send(classes);
     }
     catch (err) {
