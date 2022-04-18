@@ -6,7 +6,7 @@ require("dotenv").config();
 var jwt = require("jsonwebtoken");
 
 let newToken = (user) => {
-  return jwt.sign({ user },"mypassword");
+  return jwt.sign({ user }, process.env.JWT_SECRET_KEY);
 };
 
 const register = async (req, res) => {
