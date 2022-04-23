@@ -6,7 +6,7 @@ const authenticate = require("../middleware/authenticate");
 const authorise = require("../middleware/authorazition")
 
 router.post('/',authenticate,
-authorise(["admin"]), async (req, res) => {
+authorise(["admin"]),async (req, res) => {
     try {
         const teacher = await Teacher.create(req.body);
         res.status(201).send(teacher);
@@ -26,6 +26,34 @@ router.get("/", async (req, res) => {
         //console.log(err.message);
     }
 })
+
+
+// router.get("/sort" , async (req, res) => {
+//     console.log(req.query);
+//     try{
+//         const teachers = await Teacher.find()
+//         .sort({age:req.query.value})
+//         .populate("class_id")
+//         .lean().exec();
+//         res.status(200).send(teachers);
+//     }
+//     catch(err){
+//         res.status(500).send(err.message);   
+//     }
+// })
+
+// router.get("/search",async (req, res) => {
+//     try{
+//         const teachers = await Teacher.find({name:req.query.value})
+//         .populate("class_id")
+//         .lean().exec();
+//         res.status(200).send(teachers);
+        
+//     }
+//     catch(err){
+//         res.status(500).send(err.message);   
+//     }
+// })
 
 router.get("/:id", async (req, res) => {
     try {

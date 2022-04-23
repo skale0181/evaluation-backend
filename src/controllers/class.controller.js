@@ -3,9 +3,9 @@ const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 
 const Class = require('../models/classes.model');
+const authorise = require("../middleware/authorazition");
 
-
-router.post('/',authenticate, async (req, res) => {
+router.post('/',authenticate, authorise(["admin"]),async (req, res) => {
     try {
         const classes = await Class.create(req.body);
         res.status(201).send(classes);
